@@ -57,7 +57,12 @@ def group_context(group, bridge):
 def login(request, **kwargs):
     
     form_class = kwargs.pop("form_class", LoginForm)
-    template_name = kwargs.pop("template_name", "account/login.html")
+    
+    if request.is_ajax():
+        template_name = "account/_ajax_login.html"
+    else:
+        template_name = kwargs.pop("template_name", "account/login.html")
+    
     success_url = kwargs.pop("success_url", None)
 #    associate_openid = kwargs.pop("associate_openid", False)
 #    openid_success_url = kwargs.pop("openid_success_url", None)
